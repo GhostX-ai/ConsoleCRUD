@@ -13,7 +13,16 @@ namespace ConsoleCRUD
             
         }
 
-        
+        private static void AlwaysOn()
+        {
+            using (SchoolContext db = new SchoolContext())
+            {
+                db.Student.ToList().ForEach(p =>
+                {
+                    Console.WriteLine($"Id:{p.Id}\nFullName:{p.FullName}\nLevel:{p.Level}\nAge:{p.Age}");
+                });
+            }
+        }
 
         private static void AddStudent()
         {

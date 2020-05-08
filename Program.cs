@@ -12,5 +12,25 @@ namespace ConsoleCRUD
         {
             
         }
+
+        
+
+        private static void AddStudent()
+        {
+            Guid gr = Guid.NewGuid();
+            Student st = new Student();
+            st.Id = gr.ToString();
+            Console.Write("Enter student's FullName:");
+            st.FullName = Console.ReadLine();
+            Console.Write("Enter his(her) age:");
+            st.Age = int.Parse(Console.ReadLine());
+            Console.Write("Enter student's grade:");
+            st.Level = int.Parse(Console.ReadLine());
+            using (SchoolContext db = new SchoolContext())
+            {
+                db.Student.Add(st);
+                db.SaveChanges();
+            }
+        }
     }
 }

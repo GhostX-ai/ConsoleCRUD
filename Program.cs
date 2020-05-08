@@ -10,7 +10,55 @@ namespace ConsoleCRUD
     {
         static void Main(string[] args)
         {
-            
+            Student st = new Student();
+            Console.WriteLine("Welcome to hell");
+            while (true)
+            {
+                AlwaysOn();
+                try
+                {
+                    Console.WriteLine("1 - for add a student\n2 - for select the student");
+                    int chs = int.Parse(Console.ReadLine());
+                    if (chs == 1)
+                    {
+                        AddStudent();
+                    }
+                    else if (chs == 2)
+                    {
+                        Console.Write("Copy and Enter Id from upper:");
+                        string Id = Console.ReadLine();
+                        using (SchoolContext db = new SchoolContext())
+                        {
+                            st = db.Student.Find(Id);
+                            if (st == null)
+                            {
+                                continue;
+                            }
+                            Console.Write("1 for delete\n2 for edit\t:");
+                            int ch = int.Parse(Console.ReadLine());
+                            if (ch == 1)
+                            {
+                                db.Student.Remove(st);
+                                db.SaveChanges();
+                            }
+                            else if (ch == 2)
+                            {
+                                Console.Write("Enter new FullName:");
+                                st.FullName = Console.ReadLine();
+                                Console.Write("Enter new Age:");
+                                st.Age = int.Parse(Console.ReadLine());
+                                Console.Write("Enter new Grade:");
+                                st.Level = int.Parse(Console.ReadLine());
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+
+                }
+            }
         }
 
         private static void AlwaysOn()
